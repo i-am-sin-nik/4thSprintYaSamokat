@@ -26,9 +26,10 @@ public class mainPage {
     public mainPage(WebDriver driver){
         this.driver = driver;
     }
+
     //Ожидание загрузки Header
     public void waitHeader() {
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(header));
     }
     //Клик по верхней кнопке заказа

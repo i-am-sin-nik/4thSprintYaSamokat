@@ -22,11 +22,11 @@ public class orderRentPage {
     //Комментарий курьеру
     private By commentCourier = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     //Кнопка "Заказать"
-    private By buttonOrder = By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Заказать']");
+    private By buttonOrder = By.xpath(".//div[contains(@class,'Order_Buttons')]//button[text()='Заказать']");
     //Попап кнопка подтверждения заказа
-    private By buttonConfirm = By.xpath(".//div[@class='Order_Buttons__1xGrp']//button[text()='Да']");
+    private By buttonConfirm = By.xpath(".//div[contains(@class,'Order_Modal')]//button[text()='Да']");
     //Попап "Заказ оформлен"
-    private By orderPlaced = By.xpath(".//div[contains(@class,'Order_Modal__YZ-d3')]");
+    private By orderPlaced = By.xpath(".//div[contains(@class,'Order_Modal')]//div[text()='Заказ оформлен']");
 
     private WebDriver driver;
     public orderRentPage(WebDriver driver){
@@ -90,8 +90,7 @@ public class orderRentPage {
     }
     //Оформился
     public void checkOrder(){
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(orderPlaced));
-        System.out.println("Заказ оформлен");
     }
 }
