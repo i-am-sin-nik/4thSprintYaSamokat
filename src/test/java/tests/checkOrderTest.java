@@ -67,7 +67,6 @@ public class checkOrderTest extends BaseTest{
         objPersonPage = new orderPersonPage(driver);
         objRentPage = new orderRentPage(driver);
         objMainPage.waitHeader();
-
     }
     @Test
     public void orderTest(){
