@@ -1,4 +1,4 @@
-package tests;
+package tests.config;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,12 +15,9 @@ import java.util.List;
 
 public class BaseTest {
     protected WebDriver driver;
-    protected static final String BASE_URL = "https://qa-scooter.praktikum-services.ru/";
-    //Кнопка с куки
-    private By cookieButtonLocator = By.id("rcc-confirm-button");
     //Cookie
     public void cookieKiller(){
-        List<WebElement> cookieButton = driver.findElements(cookieButtonLocator);
+        List<WebElement> cookieButton = driver.findElements(By.id(Constants.COOKIE_BUTTON_ID));
         if (!cookieButton.isEmpty()) {
             cookieButton.get(0).click();
         }
@@ -28,16 +25,16 @@ public class BaseTest {
 
     @Before
     public void setUp() {
-        FirefoxOptions options = new FirefoxOptions();
+        /*FirefoxOptions options = new FirefoxOptions();
         options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
         driver = new FirefoxDriver(options);
-        driver.manage().window().maximize();
-        /*ChromeOptions options = new ChromeOptions();
+        driver.manage().window().maximize();*/
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();*/
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.get(BASE_URL);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.TIMEOUT_PAGE_LOAD));
+        driver.get(Constants.BASE_URL);
         cookieKiller();
     }
 

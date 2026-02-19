@@ -7,10 +7,12 @@ import org.junit.runners.Parameterized;
 import pageObjects.mainPage;
 import pageObjects.orderPersonPage;
 import pageObjects.orderRentPage;
+import tests.config.BaseTest;
+import tests.config.Constants;
 
 @RunWith(Parameterized.class)
 
-public class checkOrderTest extends BaseTest{
+public class checkOrderTest extends BaseTest {
 
     private mainPage objMainPage;
     private orderPersonPage objPersonPage;
@@ -90,7 +92,7 @@ public class checkOrderTest extends BaseTest{
         objRentPage.waitPageConfirm();
         objRentPage.clickConfirm();
         //Оформился
-        objRentPage.checkOrder();
+        objRentPage.checkOrder(Constants.EXPECTED_CONFIRM_MESSAGE);
     }
 
 }

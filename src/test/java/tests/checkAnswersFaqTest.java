@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import pageObjects.mainPage;
 import static org.junit.Assert.assertEquals;
 import org.openqa.selenium.JavascriptExecutor;
+import tests.config.BaseTest;
 
 @RunWith(Parameterized.class)
 public class checkAnswersFaqTest extends BaseTest {

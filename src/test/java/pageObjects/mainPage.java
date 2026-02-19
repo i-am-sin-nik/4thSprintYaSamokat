@@ -1,11 +1,11 @@
 package pageObjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import tests.config.Constants;
 
 import java.time.Duration;
 import java.util.List;
@@ -29,7 +29,7 @@ public class mainPage {
 
     //Ожидание загрузки Header
     public void waitHeader() {
-        new WebDriverWait(driver, Duration.ofSeconds(15))
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_PAGE_LOAD))
                 .until(ExpectedConditions.visibilityOfElementLocated(header));
     }
     //Клик по верхней кнопке заказа
@@ -38,7 +38,7 @@ public class mainPage {
     }
     //Клик по нижней кнопке заказа
     public void clickLowOrderButton(){
-        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
                 .until(ExpectedConditions.elementToBeClickable(lowOrderButton));
         element.click();
     }
@@ -65,7 +65,7 @@ public class mainPage {
     //Текст ответа
     public String getAnswerText(int index) {
         List<WebElement> answers = getAnswers();
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
                 .until(ExpectedConditions.visibilityOf(answers.get(index)));
         return answers.get(index).getText();
     }

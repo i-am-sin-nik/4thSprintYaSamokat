@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import tests.config.Constants;
 
 import java.time.Duration;
 
@@ -29,7 +30,7 @@ public class orderPersonPage {
 
     //Ожидание загрузки страницы
     public void waitPage(){
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_PAGE_LOAD))
                 .until(ExpectedConditions.visibilityOfElementLocated(nextButtonLocator));
     }
     //Ввод имени
@@ -56,7 +57,7 @@ public class orderPersonPage {
         element.clear();
         element.sendKeys(metro);
         By listMetro = By.xpath("//div[contains(@class,'select-search__select')]//div[text()='" + metro + "']");
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
                 .until(ExpectedConditions.elementToBeClickable(listMetro))
                 .click();
     }

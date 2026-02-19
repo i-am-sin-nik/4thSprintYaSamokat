@@ -1,11 +1,16 @@
 package pageObjects;
 
+import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import tests.config.Constants;
 
 import java.time.Duration;
+
+
+import static org.hamcrest.CoreMatchers.containsString;
 
 public class orderRentPage {
     //Дата аренды(15.02.2026)
@@ -34,7 +39,7 @@ public class orderRentPage {
     }
     //Ожидание загрузки страницы
     public void waitPage(){
-        new WebDriverWait(driver, Duration.ofSeconds(15))
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_PAGE_LOAD))
                 .until(ExpectedConditions.visibilityOfElementLocated(dateRent));
     }
     //Ввод даты
@@ -46,7 +51,7 @@ public class orderRentPage {
     public void setPeriodRent(String period){
         driver.findElement(periodRent).click();
 
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
                 .until(ExpectedConditions.visibilityOfElementLocated(menuRentPeriod));
 
         driver.findElements(listRentPeriod).stream()
@@ -77,20 +82,27 @@ public class orderRentPage {
     }
     //Нажать заказать
     public void clickOrder(){
-        driver.findElement(buttonOrder).click();
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
+                .until(ExpectedConditions.elementToBeClickable(buttonOrder))
+                .click();
     }
     //Ожидание подтверждения
     public void waitPageConfirm(){
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
                 .until(ExpectedConditions.visibilityOfElementLocated(buttonConfirm));
     }
     //Подтвердить заказ
     public void clickConfirm(){
-        driver.findElement(buttonConfirm).click();
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
+                .until(ExpectedConditions.elementToBeClickable(buttonConfirm))
+                .click();
     }
     //Оформился
-    public void checkOrder(){
-        new WebDriverWait(driver, Duration.ofSeconds(15))
-                .until(ExpectedConditions.visibilityOfElementLocated(orderPlaced));
+    public void checkOrder(String expectedText){
+        String actualText = new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
+                .until(ExpectedConditions.visibilityOfElementLocated(orderPlaced))
+                .getText();
+        MatcherAssert.assertThat("Не найдено сообщение '" + expectedText + "'.", actualText, containsString(expectedText));
     }
+
 }
