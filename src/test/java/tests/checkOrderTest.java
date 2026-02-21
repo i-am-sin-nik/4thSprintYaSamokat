@@ -1,14 +1,21 @@
 package tests;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.mainPage;
 import pageObjects.orderPersonPage;
 import pageObjects.orderRentPage;
 import tests.config.BaseTest;
 import tests.config.Constants;
+
+import java.time.Duration;
+
+import static org.hamcrest.CoreMatchers.containsString;
 
 @RunWith(Parameterized.class)
 
@@ -92,7 +99,11 @@ public class checkOrderTest extends BaseTest {
         objRentPage.waitPageConfirm();
         objRentPage.clickConfirm();
         //Оформился
-        objRentPage.checkOrder(Constants.EXPECTED_CONFIRM_MESSAGE);
+        String actualText = new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
+                .until(ExpectedConditions.visibilityOfElementLocated(objRentPage.getOrderPlaced()))
+                .getText();
+        MatcherAssert.assertThat("Не найдено сообщение '" + Constants.EXPECTED_CONFIRM_MESSAGE + "'.", actualText, containsString(Constants.EXPECTED_CONFIRM_MESSAGE));
+
     }
 
 }

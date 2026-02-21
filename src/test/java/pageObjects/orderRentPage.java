@@ -97,12 +97,8 @@ public class orderRentPage {
                 .until(ExpectedConditions.elementToBeClickable(buttonConfirm))
                 .click();
     }
-    //Оформился
-    public void checkOrder(String expectedText){
-        String actualText = new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT_ELEMENT_VISIBLE))
-                .until(ExpectedConditions.visibilityOfElementLocated(orderPlaced))
-                .getText();
-        MatcherAssert.assertThat("Не найдено сообщение '" + expectedText + "'.", actualText, containsString(expectedText));
+    //геттер попап "Заказ оформлен"
+    public By getOrderPlaced(){
+        return orderPlaced;
     }
-
 }

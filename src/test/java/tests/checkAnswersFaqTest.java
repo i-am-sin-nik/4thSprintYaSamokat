@@ -44,8 +44,7 @@ public class checkAnswersFaqTest extends BaseTest {
 
     @Test
     public void faqTest() {
-        WebElement element = driver.findElement(By.id("accordion__heading-0"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+        objMainPage.scrollIntoFirstAnswer();
 
         objMainPage.clickQuestion(questionIndex);
         String actualAnswer = objMainPage.getAnswerText(questionIndex);
